@@ -28,6 +28,9 @@ class Message extends MY_Model{
         return $this->db->get_where($this->table_name,array("id"=>$id))->row();
     }
 
+
+    // getting the user's message with their comments
+    
     public function get_message_by_user_id($id){
        $messages = $this->db->get_where($this->table_name,array('to_id'=>$id))->result();
         

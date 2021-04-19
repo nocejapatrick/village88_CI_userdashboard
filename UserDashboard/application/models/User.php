@@ -20,6 +20,10 @@ class User extends MY_Model{
         return $this->db->get_where($this->table_name,array('id'=>$id))->row()->user_level == 9;
     }
 
+    public function delete($id){
+        $this->db->delete($this->table_name,array('id'=>$id));
+    }
+
     public function create($arr){
 
         $this->form_validation->set_rules($this->registration_rules());
@@ -30,6 +34,7 @@ class User extends MY_Model{
         }
         else
         {
+            // generation of my salt
             $salt = $this->generate_rand(10);
             $password = md5($salt.$arr["password"]);
             $arr["password"] = $password;
@@ -70,6 +75,8 @@ class User extends MY_Model{
     public function find_user_by_email($str){
         return $this->db->get_where($this->table_name, array('email'=>$str))->row();
     }
+
+    // Sign in database level logic
 
     public function signin($arr){
         $this->form_validation->set_rules($this->signin_rules());
@@ -139,6 +146,8 @@ class User extends MY_Model{
         return true;
     }
 
+    // my change password rule
+
     public function change_pass_rules(){
         return array(
             array(
@@ -153,6 +162,8 @@ class User extends MY_Model{
             ),
         );
     }
+
+    // my sign in rules
 
     public function signin_rules(){
         return array(
@@ -169,6 +180,7 @@ class User extends MY_Model{
         );
     }
 
+    // my user edit rules
     public function user_edit_rules(){
         return array(
             array(

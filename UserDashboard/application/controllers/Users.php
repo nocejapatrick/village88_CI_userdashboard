@@ -53,6 +53,15 @@ class Users extends MY_Controller{
         $this->load->view('templates/users/new');
     }
 
+    public function delete(){
+        $this->user_logged_in();
+        $this->is_admin();
+        $this->User->delete($this->input->post('user_id',true));
+
+        $this->session->flashdata('success','User successfully Deleted');
+        redirect(base_url().'dashboard/admin');
+    }
+
     public function show($id){
         $this->user_logged_in();
 
@@ -78,7 +87,7 @@ class Users extends MY_Controller{
     }
 
   
-
+    // my registration proccess logic
     public function registration_process(){
         $registered_user = $this->input->post(null,true);
 
@@ -86,12 +95,13 @@ class Users extends MY_Controller{
 
         if($isInsertSuccess === true){
             $this->session->set_flashdata('success','Successfully Registered. Kindly Sign in.');
-            redirect(base_url().'register');
         }else{
             $this->error_arrays($isInsertSuccess);
-            redirect(base_url().'register');
         }
+        redirect(base_url().'register');
     }
+
+    // Creation of my user accounts
 
     public function new_user_process(){
         $registered_user = $this->input->post(null,true);
@@ -100,12 +110,13 @@ class Users extends MY_Controller{
 
         if($isInsertSuccess === true){
             $this->session->set_flashdata('success','Successfully Registered. Kindly Sign in.');
-            redirect(base_url().'users/new');
         }else{
             $this->error_arrays($isInsertSuccess);
-            redirect(base_url().'users/new');
         }
+        redirect(base_url().'users/new');
     }
+
+    // This is my Sign in logic
 
     public function signin_proccess(){
         $loginUser = $this->input->post(null,true);
@@ -115,11 +126,15 @@ class Users extends MY_Controller{
         if(isset($hasUser->id)){
             
             $isUserAdmin = $this->User->is_user_admin($hasUser->id);
-
+            
             $this->session->set_userdata('user',$hasUser);
-           
-            redirect(base_url().'dashboard');
-           
+
+            if($isUserAdmin){
+                redirect(base_url().'dashboard/admin');
+            }else{
+                redirect(base_url().'dashboard');
+            }
+
         }else{
 
             $this->error_arrays($hasUser);
@@ -128,6 +143,7 @@ class Users extends MY_Controller{
         }
     }
 
+    // my Process of user edit
     public function edit_information_process(){
         $editUser = $this->input->post(null,true);
 
@@ -155,6 +171,7 @@ class Users extends MY_Controller{
         }
     }
 
+    // my change password proccess on user's profile
     public function change_password_process(){
         $changePassInputs = $this->input->post(null,true);
 
@@ -182,6 +199,8 @@ class Users extends MY_Controller{
         }
     }
 
+
+    // my edit description procecss on user's profile
     public function edit_description_process(){
         $description = $this->input->post(null,true);
         $description["id"] = $this->session->userdata('user')->id;

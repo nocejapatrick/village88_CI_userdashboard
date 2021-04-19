@@ -8,6 +8,7 @@ class Messages extends MY_Controller{
         $this->load->model("Comment");
     }
 
+    // Creation of my message
     public function create_message(){
         $message = $this->input->post(null,true);
         $message["from_id"] = $this->session->userdata('user')->id;
@@ -21,6 +22,8 @@ class Messages extends MY_Controller{
         }
     }
 
+
+    // Creation of my comments to my message
     public function comment_add(){
         $comment = $this->input->post(null,true);
         $comment["user_id"] = $this->session->userdata('user')->id;
