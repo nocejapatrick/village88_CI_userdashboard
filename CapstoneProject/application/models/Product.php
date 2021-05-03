@@ -12,6 +12,9 @@ class Product extends MY_Model{
         return $this->db->get($this->table_name)->result();
     }
 
+    public function get_similar($id){
+        return  $this->db->limit(5)->get_where($this->table_name,array('category_id'=>$id))->result();
+    }
     public function paginate_get($offset,$num_page){
         return $this->db->limit($num_page,$offset)->get($this->table_name)->result();
     }

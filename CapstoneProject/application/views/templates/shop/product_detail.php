@@ -26,12 +26,21 @@
     </div>
     <h2 class="mt-5">Similar Items</h2>
     <div class="row products flex-wrap">
+        <?php 
+      
+        foreach($similar as $item){
+          
+            ?>
         <div class="col-2 product">
-            <a href="#">
-                <img src="/assets/images/milo.jpg" class="img-fluid" alt="">
+            <a href="/products/show/<?= $item->id ?>">
+            <?php 
+                $main_img = json_decode($item->images)->main;
+            ?>
+                <img src="/assets/images/products/<?= $item->id ?>/<?= $main_img ?>" class="img-fluid" alt="">
             </a>
-            <h5 class="product-title mt-2">Milo</h5>
-            <p class="product-price">$91.90</p>
+            <h5 class="product-title mt-2"><?= $item->name?></h5>
+            <p class="product-price">$<?= $item->price?></p>
         </div>
+        <?php } ?>
     </div>
 </div>

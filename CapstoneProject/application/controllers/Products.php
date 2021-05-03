@@ -27,7 +27,9 @@ class Products extends MY_Controller{
 
     public function show($id){
         $product = $this->Product->find($id);
-        $this->load->view('templates/shop/product_detail',array('product'=>$product));
+        $prod_cat = $product->category_id;
+        $similar = $this->Product->get_similar($prod_cat);
+        $this->load->view('templates/shop/product_detail',array('product'=>$product,'similar'=>$similar));
     }
 
     public function cart(){
