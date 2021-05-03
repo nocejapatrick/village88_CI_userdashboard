@@ -1,0 +1,36 @@
+.cart{
+    position: relative;
+}
+#card-number{
+    position: absolute;
+    padding: 1px 7px;
+    font-size: .8em;
+    background: #ffadad;
+    border-radius: 100%;
+    top: 10px;
+    left: 10px;
+}
+
+.filters-container ul{
+    padding: 0px !important;
+    list-style-type: none !important;
+}
+.filter-container li{
+    list-style-type: none !important;
+}
+
+.product-detail .product-price{
+    font-weight: bold;
+}
+
+.product-detail .main-img{
+    width: 100%;
+}
+
+.product-detail .img-gallery img{
+    display: inline-block;
+    width: 84px;
+}
+.cart .delete-product{
+    cursor: pointer;
+}
