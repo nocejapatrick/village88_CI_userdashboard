@@ -36,7 +36,7 @@
                     <td><?= $product->stocks ?></td>
                     <td></td>
                     <td>
-                      <a href="#" class="product-edit">Edit</a> |
+                      <a href="#" class="product-edit" data-toggle="modal" data-target="#exampleModal" data-productid="<?= $product->id ?>">Edit</a> |
                       <a href="#" class="product-delete">Delete</a>
                     </td>
                 </tr>
@@ -84,6 +84,7 @@
       ?>
       <form action="/products/create" method="POST" id="add-product-form">
         <input type="hidden" id="csrf" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+        <input type="hidden" id="is_edit" value="false">
         <div class="modal-body">
           <div class="form-group row">
             <label for="" class="col-3 text-right">Name</label>

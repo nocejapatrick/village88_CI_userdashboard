@@ -9,6 +9,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <?php if($this->session->userdata('user') && $this->session->userdata('user')->is_admin == 0){?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+          <?php }?>
         <?php if($this->session->userdata('user') && $this->session->userdata('user')->is_admin == 1){?>
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard/">Orders</a>
@@ -37,7 +42,16 @@
                 <a href="/logout" class="btn my-2 my-sm-0">Logout</a>
             </form>
         <?php }?>
-            <a href="#" class="cart"><i class="fa fa-shopping-cart"></i><span id="card-number">2</span></a>
+            <a href="/carts" class="cart"><i class="fa fa-shopping-cart"></i><span id="cart-number">
+            <?php 
+            $overallQuantity = 0;
+            $cart = ($this->session->userdata('cart')) ? $this->session->userdata('cart') : [];
+            foreach($cart as $prod){
+                $overallQuantity += $prod["quantity"];
+            }
+            ?>
+            <?= $overallQuantity ?>
+            </span></a>
   
     </div>
   </div>

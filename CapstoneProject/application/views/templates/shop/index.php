@@ -12,7 +12,7 @@
                 <h5 class="mt-5">Categories</h5>
                 <ul>
                     <?php foreach($categories as $category){?>
-                        <li><a href="#"><?= $category->cat ?> (<?= $category->count ?>)</a></li>
+                        <li><a href="/products/categories/<?= $category->cat_id ?>/1"><?= $category->cat ?> (<?= $category->count ?>)</a></li>
                     <?php }?>
                 </ul>
             </div>
@@ -24,10 +24,31 @@
                         <h1>Shop</h1>
                     </div>
                     <div class="col-6 text-right">
-                        <a href="#">first</a> | 
-                        <a href="#">prev</a> |
-                        <span>2</span> |
-                        <a href="#">next</a>
+                    <?php if($current_page != 1){?>
+                        <?php if($category_id != 0){ ?>
+                        <a href="/products/categories/<?= $category_id ?>/1">first</a> |
+                        <?php }else{ ?>
+                            <a href="/products/1">first</a> |
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if($current_page != 1){?>
+                        <?php if($category_id != 0){ ?>
+                        <a href="/products/categories/<?= $category_id ?>/<?= $current_page-1;?>">prev</a> |
+                        <?php }else{ ?>
+                            <a href="/products/<?= $current_page-1;?>">prev</a> |
+                        <?php } ?>
+                    <?php }?>
+
+                    <span><?= $current_page ?></span> |
+                        
+                    <?php if($current_page != $total_pages){ ?>
+                        <?php if($category_id != 0){ ?>
+                        <a href="/products/categories/<?= $category_id ?>/<?= $current_page+1;?>">next</a> |
+                        <?php }else{ ?>
+                            <a href="/products/<?= $current_page+1;?>">next</a> |
+                        <?php } ?>
+                    <?php }?>
+                    
                     </div>
                 </div>
                 <div class="row">
@@ -54,8 +75,14 @@
                     <?php }?>
                 </div>
                 <div class="pages text-center">
-                    <a href="#">1</a> |
-                    <a href="#">2</a> |
+                <?php for($i = 0; $i < $total_pages; $i++){ ?>
+                    <?php if($category_id != 0){?>
+                        <a href="/products/categories/<?= $category_id ?>/<?= $i+1 ?>"><?= $i+1 ?></a> |
+                    <?php }else{?>
+                        <a href="/products/<?= $i+1 ?>"><?= $i+1 ?></a> |
+                    <?php }?> 
+                   
+                <?php }?>
                 </div>
             </div>
         </div>

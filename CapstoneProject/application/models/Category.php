@@ -19,11 +19,13 @@ class Category extends MY_Model{
     public function delete($arr){
         $this->db->delete($this->table_name, array('id' => $arr["cat_id"]));
     }
+
+ 
     public function get_products_categories(){
-        $this->db->select('count(*) as count, categories.name as cat');
+        $this->db->select('categories.id as cat_id, count(*) as count, categories.name as cat');
         $this->db->from("products");
         $this->db->join('categories', 'categories.id = products.category_id');
-        $this->db->group_by("categories.name");
+        $this->db->group_by("categories.name, categories.id");
         return $this->db->get()->result();
     }
     public function update($arr){

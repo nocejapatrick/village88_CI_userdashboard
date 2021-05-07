@@ -43,11 +43,7 @@
                         <td><?= $info->shipping_information->address.' '.$info->shipping_information->city.' '.$info->shipping_information->state ?></td>
                         <td>$<?= $order->total ?></td>
                         <td>
-                            <select name="" class="form-control order-status" data-orderid="<?= $order->id ?>">
-                                <option value="Order in Process" <?= ($order->status == "Order in Process") ? "selected" : "" ?>>Order in Process</option>
-                                <option value="Shipped" <?= ($order->status == "Shipped") ? "selected" : "" ?>>Shipped</option>
-                                <option value="Cancelled" <?= ($order->status == "Cancelled") ? "selected" : "" ?>>Cancelled</option>
-                            </select>
+                          <?= $order->status ?>
                         </td>
                     </tr>
                     <?php } ?>
